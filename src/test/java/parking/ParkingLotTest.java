@@ -1,12 +1,17 @@
 package parking;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 
 public class ParkingLotTest {
+
+	@Rule
+	public ExpectedException exceptionRule = ExpectedException.none();
 
 	@Test
 	public void should_return_a_parking_ticket_when_parking_a_car_given_a_parking_lot_and_a_car() {
@@ -29,6 +34,19 @@ public class ParkingLotTest {
 	    Car returnCar = parkingLot.fetch(ticket);
 	    //then
 		assertEquals(returnCar, car);
+	}
+
+	@Test
+	public void should_return_UnrecognizedTicketException_when_wrong_ticket_given_a_parked_car_and_parking_lot() {
+	    //given
+		ParkingLot parkingLot = new ParkingLot();
+		Car car = new Car();
+		Ticket ticket = parkingLot.park(car);
+	    Ticket wrongTicket = new Ticket();
+		//when
+		exceptionRule.expect(UnrecognizedTicketException.class);
+		exceptionRule.expectMessage("unrecognized ticket");
+		parkingLot.fetch(wrongTicket);
 	}
 
 }
