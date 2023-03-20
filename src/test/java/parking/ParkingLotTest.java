@@ -1,14 +1,21 @@
 package parking;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
 
 
 public class ParkingLotTest {
 
 	@Test
-	public void test_given_car_when_park_then_the_car_is_parked(){
-		Assert.assertEquals("Hello World", "Hello World");
+	public void should_return_a_parking_ticket_when_parking_a_car_given_a_parking_lot_and_a_car() {
+	    //given
+	    ParkingLot parkingLot = new ParkingLot();
+		Car car = new Car();
+	    //when
+		Ticket ticket = parkingLot.park(car);
+	    //then
+		assertNotNull(ticket);
 	}
 
 }
